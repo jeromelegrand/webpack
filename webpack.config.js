@@ -32,7 +32,16 @@ module.exports = {
                     loader: 'sass-loader' // compiles Sass to CSS
                 }]
             },
-            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+            {
+                test: require.resolve('jquery'),
+                use: [{
+                    loader: 'expose-loader',
+                    options: 'jQuery'
+                },{
+                    loader: 'expose-loader',
+                    options: '$'
+                }]
+            }
         ]
     },
     plugins: [
@@ -40,6 +49,7 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",
+            "window.$": "jquery",
             Tether: "tether",
             "window.Tether": "tether",
             Popper: ['popper.js', 'default'],
